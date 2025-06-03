@@ -4,5 +4,5 @@ A growing collection of custom elements and enhancements for the Breakdance Word
 ## 1️⃣ Logo List (Enhanced Animation)
 This custom version of the Logo List block improves visual polish by adding a smooth stop animation when hovering, providing a more professional and less jarring user experience.
 
-> 🔍 **Demo coming soon**
+> 🔍 **Demo coming soon**.  
 > In the meantime, you can see a similar smooth hover-stop effect in action at the footer of [dribbble.com](https://dribbble.com/).
