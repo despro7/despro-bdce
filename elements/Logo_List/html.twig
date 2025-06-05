@@ -1,0 +1,95 @@
+{% set plugin_url = element.plugin_url ~ '/wp-content/plugins/despro-bdce/elements/Logo_List/demoimages/' %}
+
+{% set demoLogos = [
+  plugin_url ~ 'logoipsum-211.svg',
+  plugin_url ~ 'logoipsum-212.svg',
+  plugin_url ~ 'logoipsum-213.svg',
+  plugin_url ~ 'logoipsum-214.svg',
+  plugin_url ~ 'logoipsum-215.svg',
+  plugin_url ~ 'logoipsum-218.svg',
+ plugin_url ~ 'logoipsum-219.svg',
+ plugin_url ~ 'logoipsum-220.svg',
+] %}
+
+{% set logos_count = content.setting.logos|length %}
+{% if logos_count < 4 %}
+  {% set repeat_range = 1..10 %}
+{% elseif logos_count < 5 %}
+  {% set repeat_range = 1..8 %}
+{% elseif logos_count < 9 %}
+  {% set repeat_range = 1..6 %}
+{% else %}
+  {% set repeat_range = 1..4 %}
+{% endif %}
+
+{% if design.list.type == 'animated' %}
+  <div class="un-logo-bar__marquee-track carousel-type__{{ design.list.animation.animation_type }}">
+    <div class="un-logo-bar__marquee-content">
+    {% if content.setting.logos %}
+      {% for repeat in repeat_range %}
+        {% for item in content.setting.logos %}
+          {% if item.link %}
+          {{ macros.linkStart(item.link, 'un-logo-bar__logo-wrapper logo-id-' ~ (item.image.id|default('unknown'))) }}
+            {{ macros.image(item.image, item.size, item.alt, false) }}
+          {{ macros.linkEnd() }}
+          {% else %}
+          <div class="un-logo-bar__logo-wrapper logo-id-{{ item.image.id|default('unknown') }}">
+            {{ macros.image(item.image, item.size, item.alt, false) }}
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% else %}
+      {% for repeat in 1..2 %}
+        {% for logo in demoLogos %}
+          <div class="un-logo-bar__logo-wrapper">
+            <img src="{{ logo }}">
+          </div>
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
+    </div>
+  </div>
+{% elseif design.list.type == "side-scroll" %}
+  <div class="un-logo-bar__scrollable-wrapper">
+  {% if content.setting.logos %}
+    {% for item in content.setting.logos %}
+      {% if item.link %}
+        {{ macros.linkStart(item.link, 'un-logo-bar__logo-wrapper') }}
+        	{{ macros.image(item.image, item.size, item.alt, false) }}
+     	{{ macros.linkEnd() }}
+        {% else %}
+        <div class="un-logo-bar__logo-wrapper">
+          {{ macros.image(item.image, item.size, item.alt, false) }}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% else %}
+      {% for logo in demoLogos %}
+        <div class="un-logo-bar__logo-wrapper">
+          <img src="{{ logo }}">
+        </div>
+      {% endfor %}
+  {% endif %}
+  </div>
+{% else %}
+  {% if content.setting.logos %}
+    {% for item in content.setting.logos %}
+      {% if item.link %}
+        {{ macros.linkStart(item.link, 'un-logo-bar__logo-wrapper') }}
+        	{{ macros.image(item.image, item.size, item.alt, false) }}
+     	{{ macros.linkEnd() }}
+        {% else %}
+        <div class="un-logo-bar__logo-wrapper">
+          {{ macros.image(item.image, item.size, item.alt, false) }}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% else %}
+      {% for logo in demoLogos %}
+        <div class="un-logo-bar__logo-wrapper">
+          <img src="{{ logo }}">
+        </div>
+      {% endfor %}
+  {% endif %}
+{% endif %}

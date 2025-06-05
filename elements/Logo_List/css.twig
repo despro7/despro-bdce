@@ -1,0 +1,88 @@
+%%SELECTOR%% {
+  width: {{ design.list.width.style }};
+  --wrapper-gradient-color: {{ design.list.gradient_overlay.color }};
+  {{ macros.spacing_margin_y(design.spacing.container) }}
+}
+
+%%SELECTOR%% .un-logo-bar__marquee-content,
+%%SELECTOR%%.un-static-image-grid,
+%%SELECTOR%% .un-logo-bar__scrollable-wrapper {
+  column-gap: {{ design.spacing.between_logos.style }};
+}
+
+%%SELECTOR%%.un-static-image-grid {
+  row-gap: {{ design.list.vertical_gap.style }};
+}
+
+@keyframes logo-marquee-LTR {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-50% - {{ design.spacing.between_logos.style|default('30px') }} / 2), 0, 0);
+  }
+}
+
+@keyframes logo-marquee-RTL {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(50% + {{ design.spacing.between_logos.style|default('30px') }} / 2), 0, 0);
+  }
+}
+
+%%SELECTOR%%.un-image-carousel-container .carousel-type__smooth-stop-on-hover:hover {
+  --content-x-offset: -10px;
+  animation-play-state: paused;
+}
+
+%%SELECTOR%%.un-image-carousel-container.to-right .carousel-type__smooth-stop-on-hover:hover {
+  --content-x-offset: 10px;
+}
+
+%%SELECTOR%%.un-image-carousel-container .un-logo-bar__marquee-track {
+  --content-x-duration: calc({{ design.list.animation.animation_duration.style|default('30s') }} / 60);
+  animation-duration: {{ design.list.animation.animation_duration.style }};
+}
+
+%%SELECTOR%%.gradient-overlay__left::before,
+%%SELECTOR%%.gradient-overlay__both::before,
+%%SELECTOR%%.gradient-overlay__both::after,
+%%SELECTOR%%.gradient-overlay__right::after {
+  width: {{ design.list.gradient_overlay.width.style }};
+}
+
+%%SELECTOR%% .un-logo-bar__logo-wrapper,
+%%SELECTOR%% .bde-logo-list .breakdance-link {
+  height: {{ design.logo.height.style }};
+}
+
+%%SELECTOR%% .un-logo-bar__logo-wrapper img,
+%%SELECTOR%% .bde-logo-list .breakdance-link img {
+  max-width: {{ design.logo.max_width.style }};
+}
+
+%%SELECTOR%%.monochrome-logos .un-logo-bar__logo-wrapper img {
+  filter: brightness(100%) saturate(0%) !important;
+  opacity: {{ design.logo.monochrome_opacity|default(1) }};
+  mix-blend-mode: multiply;
+  transition: opacity {{ design.logo.transition_duration.style }} ease;
+}
+%%SELECTOR%%.monochrome-logos .un-logo-bar__logo-wrapper img:hover {
+  opacity: {{ design.logo.monochrome_opacity_hover|default(1) }};
+}
+
+{% if design.list.type == 'show-all' %}
+%%SELECTOR%%.un-static-image-grid {
+{% if design.list.alignment == 'flex-start' %}
+  justify-content: flex-start;
+{% elseif design.list.alignment == 'center' %}
+  justify-content: center;
+{% elseif design.list.alignment == 'flex-end' %}
+  justify-content: flex-end;
+{% else %}
+  justify-content: center;
+{% endif %}
+}
+{% endif %}
